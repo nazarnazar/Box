@@ -7,34 +7,27 @@ public class ParticleLauncher : MonoBehaviour {
 	public int startEmit = 100;
 	bool touched;
 
-	public float speed = 1f;
-	public float xLimit = 13f;
-	float xPos;
-	bool goRight = false;
+	ParticleSystem.Particle[] particles;
+	int count;
 
 
 	// Use this for initialization
 	void Start () {
-		/* if (Random.Range (0, 2) == 1) {
-			transform.Rotate (0, 180f, 0);
-		} */
 		particleLauncher.startLifetime = float.PositiveInfinity;
 		particleLauncher.Emit (startEmit);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (transform.position.x < xLimit && goRight) {
-			xPos = transform.position.x + Time.deltaTime * speed;
-		} else if (transform.position.x > xLimit && goRight) {
-			goRight = false;
-		} else if (transform.position.x > -xLimit && !goRight) {
-			xPos = transform.position.x - Time.deltaTime * speed;
-		} else if (transform.position.x < -xLimit && !goRight) {
-			goRight = true;
-		} else {}
 
-		transform.position = new Vector3 (xPos, transform.position.y, transform.position.z);
+		particles = new ParticleSystem.Particle[particleLauncher.particleCount];
+		count = particleLauncher.GetParticles (particles);
+
+		for (int i = 0; i < count; i++) {
+			particles [i].velocity = new Vector3 (0, 1, 0);
+		}
+
+		particleLauncher.SetParticles (particles, count);
 	}
 
 	void OnParticleCollision(GameObject other) {

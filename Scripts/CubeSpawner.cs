@@ -12,8 +12,8 @@ public class CubeSpawner : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		time = timer;
-		//instance = Instantiate (cube);
-		//instance.transform.position = new Vector3(0, 2f, 0);
+		instance = Instantiate (cube);
+		instance.transform.position = new Vector3(0, 2f, 0);
 	}
 	
 	// Update is called once per frame

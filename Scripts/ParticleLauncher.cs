@@ -10,6 +10,8 @@ public class ParticleLauncher : MonoBehaviour {
 	ParticleSystem.Particle[] particles;
 	int count;
 
+	float velX, velY, velZ;
+
 
 	// Use this for initialization
 	void Start () {
@@ -20,22 +22,31 @@ public class ParticleLauncher : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		particles = new ParticleSystem.Particle[particleLauncher.particleCount];
-		count = particleLauncher.GetParticles (particles);
+		if (!touched) {
+			particles = new ParticleSystem.Particle[particleLauncher.particleCount];
+			count = particleLauncher.GetParticles (particles);
 
-		for (int i = 0; i < count; i++) {
-			particles [i].velocity = new Vector3 (0, 1, 0);
+			for (int i = 0; i < count; i++) {
+				particles [i].velocity = new Vector3 (velX, velY, velZ);
+			}
+
+			particleLauncher.SetParticles (particles, count); 
 		}
 
-		particleLauncher.SetParticles (particles, count);
 	}
 
 	void OnParticleCollision(GameObject other) {
 		if (other.tag == "Ball" && ! touched) {
 			touched = true;
-			//particleLauncher.gravityModifier = 0.1f;
-			CubeSpawner cs = FindObjectOfType<CubeSpawner> ();
-			//cs.Respawn ();
+			particleLauncher.gravityModifier = 0.5f;
+			// CubeSpawner cs = FindObjectOfType<CubeSpawner> ();
+			// cs.Respawn ();
 		}
+	}
+
+	public void SetVelocity(float x, float y, float z) {
+		velX = x;
+		velY = y;
+		velZ = z;
 	}
 }

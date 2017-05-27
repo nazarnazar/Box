@@ -41,6 +41,8 @@ public class ParticleLauncher : MonoBehaviour {
 			particleLauncher.gravityModifier = 0.5f;
 			// CubeSpawner cs = FindObjectOfType<CubeSpawner> ();
 			// cs.Respawn ();
+
+			Destroy (GameObject.FindGameObjectWithTag("Steam"));
 		}
 	}
 

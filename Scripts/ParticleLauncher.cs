@@ -39,8 +39,9 @@ public class ParticleLauncher : MonoBehaviour {
 		if (other.tag == "Ball" && ! touched) {
 			touched = true;
 			particleLauncher.gravityModifier = 0.5f;
-			// CubeSpawner cs = FindObjectOfType<CubeSpawner> ();
-			// cs.Respawn ();
+
+			ResetSpawner r = FindObjectOfType<ResetSpawner> ();
+			r.SpawnReset ();
 
 			Destroy (GameObject.FindGameObjectWithTag("Steam"));
 		}

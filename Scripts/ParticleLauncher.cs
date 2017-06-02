@@ -43,6 +43,10 @@ public class ParticleLauncher : MonoBehaviour {
 			ResetSpawner r = FindObjectOfType<ResetSpawner> ();
 			r.SpawnReset ();
 
+			this.transform.parent = null;
+
+			Destroy (GameObject.FindGameObjectWithTag ("Box"));
+
 			Destroy (GameObject.FindGameObjectWithTag("Steam"));
 		}
 	}

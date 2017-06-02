@@ -19,15 +19,15 @@ public class BoxHolder : MonoBehaviour {
 
 	bool goRightX;
 
+
 	// Use this for initialization
 	void Start () {
 		pl = GetComponentInChildren<ParticleLauncher> ();
 
 		rb = GetComponent<Rigidbody> ();
 
-		nextX = nextY = nextZ = 0;
-
-		SetNextPoint ();
+		CubeSpawner cs = FindObjectOfType<CubeSpawner> ();
+		cs.GetRandomPosXYZ (out nextX, out nextY, out nextZ);
 	}
 	
 	// Update is called once per frame
@@ -63,5 +63,4 @@ public class BoxHolder : MonoBehaviour {
 
 		pl.SetVelocity (diffX, diffY, diffZ);
 	}
-
 }

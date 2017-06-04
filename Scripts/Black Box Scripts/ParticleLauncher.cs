@@ -48,6 +48,9 @@ public class ParticleLauncher : MonoBehaviour {
 			Destroy (GameObject.FindGameObjectWithTag ("Box"));
 
 			Destroy (GameObject.FindGameObjectWithTag("Steam"));
+
+			GameplayControllerBox gcb = FindObjectOfType<GameplayControllerBox> ();
+			gcb.IncScore ();
 		}
 	}
 

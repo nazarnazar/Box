@@ -26,6 +26,9 @@ public class PlateParticleLauncher : MonoBehaviour {
 		}
 
 		particleLauncher.SetParticles (particles, count); 
+
+		GvrAudioSource [] gvrAudio = GetComponents<GvrAudioSource> ();
+		gvrAudio[1].Play ();
 	}
 
 	void OnParticleCollision(GameObject other) {
@@ -35,6 +38,9 @@ public class PlateParticleLauncher : MonoBehaviour {
 
 			GameplayController gc = FindObjectOfType<GameplayController> ();
 			gc.IncScore ();
+
+			GvrAudioSource [] gvrAudio = GetComponents<GvrAudioSource> ();
+			gvrAudio[0].Play ();
 		}
 	}
 

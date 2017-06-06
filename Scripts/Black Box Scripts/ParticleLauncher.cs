@@ -51,6 +51,9 @@ public class ParticleLauncher : MonoBehaviour {
 
 			GameplayControllerBox gcb = FindObjectOfType<GameplayControllerBox> ();
 			gcb.IncScore ();
+
+			GvrAudioSource gvrAudio = GetComponent<GvrAudioSource> ();
+			gvrAudio.Play ();
 		}
 	}
 

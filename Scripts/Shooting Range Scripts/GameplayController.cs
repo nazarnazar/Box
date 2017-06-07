@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class GameplayController : MonoBehaviour {
 
 	float gameTimer = 60f;
 	float gameTime;
 
-	TextMesh timeText;
-	TextMesh scoreText;
+	Text timeText;
+	Text scoreText;
 
 	float oneSecondTimer;
 	int secondsLeft;
@@ -16,11 +17,11 @@ public class GameplayController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		timeText = GameObject.FindGameObjectWithTag ("TextTime").GetComponent<TextMesh> ();
+		timeText = GameObject.FindGameObjectWithTag ("TextTime").GetComponent<Text> ();
 		secondsLeft = 60;
 		timeText.text = "Time: " + secondsLeft.ToString (); 
 
-		scoreText = GameObject.FindGameObjectWithTag ("TextScore").GetComponent<TextMesh> ();
+		scoreText = GameObject.FindGameObjectWithTag ("TextScore").GetComponent<Text> ();
 		scored = 0;
 		scoreText.text = "Score: " + scored.ToString ();
 
@@ -34,6 +35,8 @@ public class GameplayController : MonoBehaviour {
 		if (gameTime <= 0) {
 			PlateSpawner ps = FindObjectOfType<PlateSpawner> ();
 			ps.Spawn = false;
+			secondsLeft = 0;
+			timeText.text = "Time: " + secondsLeft.ToString ();
 			if (scored > PlayerPrefs.GetInt ("rangeBest")) {
 				PlayerPrefs.SetInt ("rangeBest", scored);
 			}
@@ -47,5 +50,8 @@ public class GameplayController : MonoBehaviour {
 	public void IncScore() {
 		scored++;
 		scoreText.text = "Score: " + scored.ToString ();
+
+		secondsLeft += 5;
+		gameTime += 5;
 	}
 }

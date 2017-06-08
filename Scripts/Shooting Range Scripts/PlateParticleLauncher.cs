@@ -12,9 +12,12 @@ public class PlateParticleLauncher : MonoBehaviour {
 
 	float velX, velY, velZ;
 
+	Color startColor = new Color(1f, 0.4f, 0);
+
 
 	// Use this for initialization
 	void Start () {
+		particleLauncher.startColor = startColor;
 		particleLauncher.startLifetime = float.PositiveInfinity;
 		particleLauncher.Emit (startEmit);
 
@@ -37,7 +40,19 @@ public class PlateParticleLauncher : MonoBehaviour {
 			particleLauncher.gravityModifier = 1f;
 
 			GameplayController gc = FindObjectOfType<GameplayController> ();
-			gc.IncScore ();
+			BallSpawner bs = FindObjectOfType<BallSpawner> ();
+
+			if (startColor == new Color (1f, 0.2f, 0f)) {
+				bs.IncreaseFireRate ();
+				gc.IncScore ();
+			} else if (startColor == new Color (0.4f, 1f, 0f)) {
+				gc.IncScore (2, 10);
+			} else if (startColor == new Color (0.8f, 0f, 1f)) {
+				bs.IncreaseBallSpeed ();
+				gc.IncScore ();
+			} else {
+				gc.IncScore ();
+			}
 
 			GvrAudioSource [] gvrAudio = GetComponents<GvrAudioSource> ();
 			gvrAudio[0].Play ();
@@ -48,5 +63,10 @@ public class PlateParticleLauncher : MonoBehaviour {
 		velX = x;
 		velY = y;
 		velZ = z;
+	}
+
+	public void SetStartColor(Color color)
+	{
+		startColor = color;
 	}
 }

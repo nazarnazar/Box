@@ -17,13 +17,14 @@ public class PlateSpawner : MonoBehaviour {
 	};
 
 	Vector3[] PlatePosArray = new [] {
-		new Vector3 (0, 10, -40), new Vector3 (0, -0.5f, 4),
+		new Vector3 (0, 10, -40), new Vector3 (0, -0.75f, 4),
 		new Vector3 (45, 15, -25), new Vector3 (-45, 15, -25),
 		new Vector3 (-50, -5, 20), new Vector3 (50, -5, 20),
 		new Vector3 (-30, -5, 100), new Vector3 (30, -5, 100)
 	};
 
 	int indexPlate;
+	public float koef = 1f;
 
 	public bool Spawn { get; set; }
 
@@ -44,10 +45,27 @@ public class PlateSpawner : MonoBehaviour {
 
 	void SpawnPlate(int index) {
 		instance = Instantiate (plate);
-		instance.transform.position = PlatePosArray [index];
 
 		PlateParticleLauncher ppl = FindObjectOfType<PlateParticleLauncher> ();
-		ppl.SetVelocity (PlateVelocityArray [index].x, PlateVelocityArray [index].y, PlateVelocityArray [index].z);
+
+		koef = Random.Range (0f, 10f);
+		if (koef > 1f && koef < 2f) {
+			koef = 1.25f;
+			ppl.SetStartColor (new Color (1f, 0.2f, 0f));
+		} else if (koef > 2f && koef < 3f) {
+			koef = 1.25f;
+			ppl.SetStartColor (new Color (0.4f, 1f, 0f));
+		} else if (koef > 3f && koef < 4f) {
+			koef = 1.25f;
+			ppl.SetStartColor (new Color (0.8f, 0f, 1f));
+		} else {
+			ppl.SetStartColor (new Color (1f, 0.4f, 0));
+			koef = 1f;
+		}
+
+		instance.transform.position = PlatePosArray [index];
+
+		ppl.SetVelocity (PlateVelocityArray [index].x * koef, PlateVelocityArray [index].y * koef, PlateVelocityArray [index].z * koef);
 
 		time = timer;
 

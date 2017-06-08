@@ -47,11 +47,11 @@ public class GameplayController : MonoBehaviour {
 		}
 	}
 
-	public void IncScore() {
-		scored++;
+	public void IncScore(int score = 1, int seconds = 5) {
+		scored += score;
 		scoreText.text = "Score: " + scored.ToString ();
 
-		secondsLeft += 5;
-		gameTime += 5;
+		secondsLeft += seconds;
+		gameTime += seconds;
 	}
 }
